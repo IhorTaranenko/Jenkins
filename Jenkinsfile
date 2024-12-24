@@ -7,6 +7,7 @@ pipeline {
         DISABLE_AUTH = 'true'
         DB_ENGINE    = 'sqlite'
     }
+    stages {
      timestamps {
         stage('build') {
                 sh 'mvn --version'
@@ -65,5 +66,5 @@ pipeline {
             echo 'For example, if the Pipeline was previously failing but is now successful'
             echo 'Things were different before...'
         }
-}
+   }
 }
