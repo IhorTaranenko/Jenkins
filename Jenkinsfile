@@ -9,6 +9,7 @@ pipeline {
     }
     stages {
         stage('build') {
+           steps {
                 sh 'mvn --version'
                 sh 'echo "Hello World"'
                 sh '''
@@ -18,8 +19,10 @@ pipeline {
                 retry(1) {
                     sh './flakey-deploy.sh'
                 }
+           }
         }
-         stage('check') {             
+         stage('check') {
+            steps {
                 echo "Database engine is ${DB_ENGINE}"
                 echo "DISABLE_AUTH is ${DISABLE_AUTH}"
                 sh 'printenv'
@@ -27,10 +30,13 @@ pipeline {
                 sh './gradlew build'
 
                 input "Does the staging environment look ok?"
-        }
+           }
+         }
          stage('Test') {
+            steps {
                 sh './gradlew check'
             }
+         }   
     }
         post {
         always {
