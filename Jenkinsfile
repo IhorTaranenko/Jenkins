@@ -24,31 +24,31 @@ pipeline {
                 echo "DISABLE_AUTH is ${DISABLE_AUTH}"
                 sh 'printenv'
 
-                sh './gradlew build'
+                sh 'check the info'
 
                 input "Does the staging environment look ok?"
            }
          }
          stage('Test') {
             steps {
-                sh './gradlew check'
+                sh 'test 1'
+               sleep 5
+                sh 'test 2'
+               sleep 5
+                sh 'test 3'
             }
          }   
     }
         post {
         always {
             echo 'This will always run'
-            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-            junit 'build/reports/**/*.xml'
             echo 'One way or another, I have finished'
             deleteDir()
         }
         success {
             echo 'This will run only if successful'
             echo 'I succeeded!'
-            slackSend channel: '#ops-room',
-                  color: 'good',
-                  message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+            echo 'completed successfully.'
         }
         failure {
             echo 'This will run only if failed'
