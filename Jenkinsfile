@@ -32,9 +32,7 @@ pipeline {
          stage('Test') {
             steps {
                 sh 'test 1'
-               sleep 5
                 sh 'test 2'
-               sleep 5
                 sh 'test 3'
             }
          }   
