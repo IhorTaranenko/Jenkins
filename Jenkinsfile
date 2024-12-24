@@ -8,7 +8,6 @@ pipeline {
         DB_ENGINE    = 'sqlite'
     }
 
-    stages {
         stage('build') {
             steps {
                 sh 'mvn --version'
@@ -31,6 +30,7 @@ pipeline {
                 sh './gradlew build'
 
                 input "Does the staging environment look ok?"
+                }
             }
         }
              stage('Test') {
