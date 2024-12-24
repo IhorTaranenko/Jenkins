@@ -17,7 +17,7 @@ pipeline {
                     ls -lah
                 '''
                 retry(1) {
-                    sh './flakey-deploy.sh'
+                    sleep 5'
                 }
            }
         }
