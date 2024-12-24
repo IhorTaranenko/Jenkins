@@ -25,8 +25,6 @@ pipeline {
                 sh 'printenv'
 
                 sh 'check the info'
-
-                input "Does the staging environment look ok?"
            }
          }
          stage('Test') {
