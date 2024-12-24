@@ -8,7 +8,6 @@ pipeline {
         DB_ENGINE    = 'sqlite'
     }
     stages {
-     timestamps {
         stage('build') {
                 sh 'mvn --version'
                 sh 'echo "Hello World"'
@@ -19,8 +18,6 @@ pipeline {
                 retry(2) {
                     sh './flakey-deploy.sh'
                 }
-
-                sleep 10
         }
          stage('check') {             
                 echo "Database engine is ${DB_ENGINE}"
@@ -67,5 +64,4 @@ pipeline {
             echo 'Things were different before...'
         }
    }
-}
 }
