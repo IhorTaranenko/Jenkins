@@ -24,14 +24,14 @@ pipeline {
                 echo "DISABLE_AUTH is ${DISABLE_AUTH}"
                 sh 'printenv'
 
-                sh 'check the info'
+                sh 'echo "check the info"'
            }
          }
          stage('Test') {
             steps {
-                sh 'test 1'
-                sh 'test 2'
-                sh 'test 3'
+                sh 'echo "test 1"'
+                sh 'echo "test 2"'
+                sh 'echo "test 3"'
             }
          }   
     }
