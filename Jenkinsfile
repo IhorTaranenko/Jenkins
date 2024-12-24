@@ -7,22 +7,21 @@ pipeline {
         DISABLE_AUTH = 'true'
         DB_ENGINE    = 'sqlite'
     }
-
+     timestamps {
         stage('build') {
-            steps {
                 sh 'mvn --version'
                 sh 'echo "Hello World"'
                 sh '''
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
-                retry(3) {
+                retry(2) {
                     sh './flakey-deploy.sh'
                 }
 
-                timeout(time: 1, unit: 'MINUTES') {
-                    sh './health-check.sh'
-                      
+                sleep 10
+        }
+         stage('check') {             
                 echo "Database engine is ${DB_ENGINE}"
                 echo "DISABLE_AUTH is ${DISABLE_AUTH}"
                 sh 'printenv'
@@ -30,14 +29,10 @@ pipeline {
                 sh './gradlew build'
 
                 input "Does the staging environment look ok?"
-                }
-            }
         }
-             stage('Test') {
-            steps {
+         stage('Test') {
                 sh './gradlew check'
             }
-        }
     }
         post {
         always {
